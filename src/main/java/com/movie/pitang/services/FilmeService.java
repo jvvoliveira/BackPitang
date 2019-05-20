@@ -23,53 +23,9 @@ public class FilmeService{
     @Autowired
     private ProdutorRepository produtorRepository;
 
-//    public Filme criar(FilmeDTO filmedto){
-//        Filme filme = new Filme();
-//        filme.setTitulo(filmedto.getTitulo());
-//        filme.setPaisDeOrigem(filmedto.getPaisDeOrigem());
-//        filme.setDuracao(filmedto.getDuracao());
-//        filme.setDescricao(filmedto.getDescricao());
-//        filme.setLingua(filmedto.getLingua());
-//        filme.setAnoLancamento(filmedto.getAnoLancamento());
-//
-//        List<Ator> atores = new ArrayList<>();
-//        for(long i: filmedto.getAtores()){
-//            if(atorRepository.existsById(i)) {
-//                atores.add(atorRepository.findByIdLike(i));
-//            }
-//        }
-//        filme.setAtores(atores);
-//
-//        List<Diretor> diretores = new ArrayList<>();
-//        for(long i: filmedto.getAtores()){
-//            if(diretorRepository.existsById(i)) {
-//                diretores.add(diretorRepository.findByIdLike(i));
-//            }
-//        }
-//        filme.setDiretores(diretores);
-//
-//        List<Autor> autores = new ArrayList<>();
-//        for(long i: filmedto.getAutores()){
-//            if(autorRepository.existsById(i)) {
-//                autores.add(autorRepository.findByIdLike(i));
-//            }
-//        }
-//        filme.setAutores(autores);
-//
-//        List<Genero> generos = new ArrayList<>();
-//        for(long i: filmedto.getGeneros()){
-//            if(generoRepository.existsById(i)) {
-//                generos.add(generoRepository.findByIdLike(i));
-//            }
-//        }
-//        filme.setGeneros(generos);
-//
-//        return filme;
-//    }
-
     public Filme atualizar(long id, FilmeDTO filmedto){
 
-        Filme atualFilme = this.filmeRepository.findById(id).get();
+        Filme atualFilme = this.filmeRepository.findById(id);
 
         if(filmedto.getTitulo() != null){
             atualFilme.setTitulo(filmedto.getTitulo());

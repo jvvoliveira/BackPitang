@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/filmes")
@@ -34,11 +33,11 @@ public class FilmeController {
 
     private List<Ator> atores;
 
-    public FilmeRepository getSerieRepository() {
+    public FilmeRepository getFilmeRepository() {
         return filmeRepository;
     }
 
-    public void setSerieRepository(FilmeRepository filmeRepository) {
+    public void setFilmeRepository(FilmeRepository filmeRepository) {
         this.filmeRepository = filmeRepository;
     }
 
@@ -56,8 +55,8 @@ public class FilmeController {
             throw new ResourceNotFoundException("Não existe filme com esse ID");
         }
 
-        Optional<Filme> filme = this.filmeRepository.findById(id);
-        return new ResponseEntity<>(filme.get(), HttpStatus.OK);
+        Filme filme = this.filmeRepository.findById(id);
+        return new ResponseEntity<>(filme, HttpStatus.OK);
     }
 
     @GetMapping(value = "/filtro/")
@@ -72,17 +71,14 @@ public class FilmeController {
             return new ResponseEntity<>(this.filmeRepository.findAll(), HttpStatus.OK);
         }
         if(titulo != null){
-//            lista.addAll(this.filmeRepository.findByTituloContainingIgnoreCase(titulo));
             Page<Filme> pageFilmes = this.filmeRepository.findByTituloContainingIgnoreCase(titulo, pageable);
             return new ResponseEntity<>(pageFilmes, HttpStatus.OK);
         }
         if(ano != null){
-//            lista.addAll(this.filmeRepository.findByAnoLancamentoLike(ano));
             Page<Filme> pageFilmes = this.filmeRepository.findByAnoLancamentoLike(ano, pageable);
             return new ResponseEntity<>(pageFilmes, HttpStatus.OK);
         }
         if(lingua != null){
-//            lista.addAll(this.filmeRepository.findByLinguaLike(lingua));
             Page<Filme> pageFilmes = this.filmeRepository.findByLinguaLike(lingua, pageable);
             return new ResponseEntity<>(pageFilmes, HttpStatus.OK);
         }
@@ -93,17 +89,6 @@ public class FilmeController {
 
         return new ResponseEntity<>(lista, HttpStatus.OK);
     }
-
-//    @PostMapping
-//    @Transactional(rollbackFor = Exception.class)
-//    public ResponseEntity<?> createFilme(@Valid @RequestBody FilmeDTO filmedto){
-//
-//        Filme filme = this.filmeService.criar(filmedto);
-//
-//        this.filmeRepository.save(filme);
-//
-//        return new ResponseEntity<>(filme, HttpStatus.CREATED);
-//    }
 
     @DeleteMapping
     public ResponseEntity<?> deleteAll(){
@@ -120,7 +105,7 @@ public class FilmeController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         catch(EmptyResultDataAccessException ex){
-            return new ResponseEntity<>("Não  existe filme com esse ID",HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Não  existe filme com esse ID", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -142,7 +127,6 @@ public class FilmeController {
         for(Filme filme : lista){
             this.filmeRepository.save(filme);
         }
-        //this.filmeRepository.saveAll(lista);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

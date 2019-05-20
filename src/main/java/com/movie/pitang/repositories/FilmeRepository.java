@@ -11,4 +11,6 @@ public interface FilmeRepository extends JpaRepository<Filme, Long> {
     public Page<Filme> findByLinguaLike(String lingua, Pageable pageable);
     public Page<Filme> findByAnoLancamentoLike(int ano, Pageable pageable);
     public Filme findByIdapiLike(long id);
+    public Filme findById(long id);
+    public Filme deleteById(long id);
 }

@@ -80,12 +80,6 @@ public class ProdutorController {
                     (this.produtorRepository.findByTipoLike("Writing", pageable), HttpStatus.OK);
         }
         if(nome != null){
-//            Page<Produtor> pageProdutor = this.produtorRepository.findByTipoLike("Writing", pageable);
-//            for(Produtor autor : pageProdutor.getContent()){
-//                if(autor.getNome().contains(nome)){
-//                    lista.add(autor);
-//                }
-//            }
             Page<Produtor> pageAutores = this.produtorRepository.
                     findByNomeContainingIgnoreCaseAndTipoLike(nome, "Writing", pageable);
             return new ResponseEntity<>(pageAutores, HttpStatus.OK);
@@ -110,12 +104,6 @@ public class ProdutorController {
         }
 
         if(nome != null){
-//            Page<Produtor> pageDiretor = this.produtorRepository.findByTipoLike("Directing", pageable);
-//            for(Produtor diretor : pageDiretor.getContent()){
-//                if(diretor.getNome().contains(nome)){
-//                    lista.add(diretor);
-//                }
-//            }
             Page<Produtor> pageDiretores = this.produtorRepository.
                     findByNomeContainingIgnoreCaseAndTipoLike(nome, "Directing", pageable);
             return new ResponseEntity<>(pageDiretores, HttpStatus.OK);
