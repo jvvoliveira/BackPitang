@@ -31,7 +31,7 @@ public class PessoaService {
 
     public Ator atualizarAtor(long id, PessoaDTO pessoadto){
 
-        Ator atualAtor = this.atorRepository.findById(id).get();
+        Ator atualAtor = this.atorRepository.findById(id);
 
         if(pessoadto.getAltura() != null){
             atualAtor.setAltura(pessoadto.getAltura());

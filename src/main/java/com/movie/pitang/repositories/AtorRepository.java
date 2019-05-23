@@ -13,4 +13,5 @@ public interface AtorRepository extends JpaRepository<Ator, Long> {
     public boolean existsByNome(String nome);
     public Ator findByIdLike(long id);
     public Ator findByIdapiLike(long id);
+    public Ator findById(long id);
 }

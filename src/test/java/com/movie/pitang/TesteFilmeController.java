@@ -25,8 +25,6 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TesteFilmeController {
-    //como obter mais informações de um ResponseEntity?
-    //um page sempre volta com corpo?
 
     @Mock
     private FilmeController filmeController;
@@ -177,7 +175,7 @@ public class TesteFilmeController {
     public void pegarFilmePorTituloInexistente(){
         ResponseEntity<?> filme = this.filmeController.getFilmeByFields(pageable, "titulo inexistente",null,null);
         Assert.assertEquals(HttpStatus.OK, filme.getStatusCode());
-//        Assert.assertFalse(filme.getBody());
+//        Assert.assertFalse(filme.hasBody());
     }
     @Test
     public void pegarFilmePorLingua(){
@@ -185,16 +183,16 @@ public class TesteFilmeController {
         Assert.assertEquals(HttpStatus.OK, filme.getStatusCode());
         Assert.assertTrue(filme.hasBody());
     }
-//    @Test
-//    public void pegarFilmeSemParametro(){
-//        ResponseEntity<?> filme = this.filmeController.getFilmeByFields(pageable, null,null,null);
-//        Assert.assertEquals(HttpStatus.OK, filme.getStatusCode());
-////        for(int i = 0; i < this.listaFilmes.size(); i++){
-////            if(this.listaFilmes.get(i).getTitulo() != filme.getBody().){
-////
-////            }
-////        }
-//    }
+    @Test
+    public void pegarFilmeSemParametro(){
+        ResponseEntity<?> filme = this.filmeController.getFilmeByFields(pageable, null,null,null);
+        Assert.assertEquals(HttpStatus.OK, filme.getStatusCode());
+//        for(int i = 0; i < this.listaFilmes.size(); i++){
+//            if(this.listaFilmes.get(i).getTitulo() != filme.getBody().){
+//
+//            }
+//        }
+    }
 
     @Test(expected = ResourceNotFoundException.class)
     public void deletarFilmePorId(){
@@ -203,11 +201,11 @@ public class TesteFilmeController {
         Assert.assertEquals(HttpStatus.OK, filme.getStatusCode());
         Assert.assertEquals(HttpStatus.NOT_FOUND, filmeBusca.getStatusCode());
     }
-//    @Test(expected = ResourceNotFoundException.class)
-//    public void deletarFilmePorIdInexistente(){
-//        ResponseEntity<?> filme = this.filmeController.deleteFilmeById(35689);
-//        Assert.assertEquals(HttpStatus.NOT_FOUND, filme.getStatusCode());
-//        Assert.assertFalse(filme.hasBody());
-//    }
+    @Test(expected = ResourceNotFoundException.class)
+    public void deletarFilmePorIdInexistente(){
+        ResponseEntity<?> filme = this.filmeController.deleteFilmeById(35689);
+        Assert.assertEquals(HttpStatus.NOT_FOUND, filme.getStatusCode());
+        Assert.assertFalse(filme.hasBody());
+    }
 
 }

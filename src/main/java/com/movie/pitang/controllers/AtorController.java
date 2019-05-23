@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/atores")
@@ -53,8 +52,8 @@ public class AtorController {
             throw new ResourceNotFoundException("Não existe ator/atriz com esse ID");
         }
 
-        Optional<Ator> ator = this.atorRepository.findById(id);
-        return new ResponseEntity<>(ator.get(), HttpStatus.OK);
+        Ator ator = this.atorRepository.findById(id);
+        return new ResponseEntity<>(ator, HttpStatus.OK);
     }
 
     @GetMapping(value = "/filtro/")
